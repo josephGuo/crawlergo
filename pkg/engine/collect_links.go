@@ -12,7 +12,8 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-/**
+/*
+*
 最后收集所有的链接
 */
 func (tab *Tab) collectLinks() {

@@ -254,7 +254,8 @@ func outputResult(result *pkg.Result) {
 	}
 }
 
-/**
+/*
+*
 原生被动代理推送支持
 */
 func Push2Proxy(reqList []*model2.Request) {
@@ -277,7 +278,8 @@ func Push2Proxy(reqList []*model2.Request) {
 	pushProxyWG.Wait()
 }
 
-/**
+/*
+*
 协程池请求的任务
 */
 func (p *ProxyTask) doRequest() {

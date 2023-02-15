@@ -85,7 +85,8 @@ func (s *SmartFilter) Init() {
 	s.uniqueMarkedIds = mapset.NewSet()
 }
 
-/**
+/*
+*
 智能去重
 可选严格模式
 
@@ -149,7 +150,8 @@ func (s *SmartFilter) DoFilter(req *model.Request) bool {
 	return false
 }
 
-/**
+/*
+*
 Query的Map对象会自动解码，所以对RawQuery进行预先的标记
 */
 func (s *SmartFilter) preQueryMark(rawQuery string) string {
@@ -163,7 +165,8 @@ func (s *SmartFilter) preQueryMark(rawQuery string) string {
 	return rawQuery
 }
 
-/**
+/*
+*
 对GET请求的参数和路径进行标记
 */
 func (s *SmartFilter) getMark(req *model.Request) {
@@ -199,7 +202,8 @@ func (s *SmartFilter) getMark(req *model.Request) {
 	req.Filter.UniqueId = getMarkedUniqueID(req)
 }
 
-/**
+/*
+*
 对POST请求的参数和路径进行标记
 */
 func (s *SmartFilter) postMark(req *model.Request) {
@@ -227,7 +231,8 @@ func (s *SmartFilter) postMark(req *model.Request) {
 	req.Filter.UniqueId = getMarkedUniqueID(req)
 }
 
-/**
+/*
+*
 标记参数名
 */
 func markParamName(paramMap map[string]interface{}) map[string]interface{} {
@@ -248,7 +253,8 @@ func markParamName(paramMap map[string]interface{}) map[string]interface{} {
 	return markedParamMap
 }
 
-/**
+/*
+*
 标记参数值
 */
 func (s *SmartFilter) markParamValue(paramMap map[string]interface{}, req model.Request) map[string]interface{} {
@@ -336,7 +342,8 @@ func (s *SmartFilter) markParamValue(paramMap map[string]interface{}, req model.
 	return markedParamMap
 }
 
-/**
+/*
+*
 标记路径
 */
 func MarkPath(path string) string {
@@ -376,7 +383,8 @@ func MarkPath(path string) string {
 	return newPath
 }
 
-/**
+/*
+*
 全局数值型参数过滤
 */
 func (s *SmartFilter) globalFilterLocationMark(req *model.Request) {
@@ -398,7 +406,8 @@ func (s *SmartFilter) globalFilterLocationMark(req *model.Request) {
 	}
 }
 
-/**
+/*
+*
 进行全局重复参数名、参数值、路径的统计标记
 之后对超过阈值的部分再次打标记
 */
@@ -483,7 +492,8 @@ func (s *SmartFilter) repeatCountStatistic(req *model.Request) {
 	}
 }
 
-/**
+/*
+*
 对重复统计之后，超过阈值的部分再次打标记
 */
 func (s *SmartFilter) overCountMark(req *model.Request) {
@@ -571,7 +581,8 @@ func (s *SmartFilter) calcFragmentID(fragment string) string {
 	return fakeReq.Filter.UniqueId
 }
 
-/**
+/*
+*
 计算标记后的唯一请求ID
 */
 func getMarkedUniqueID(req *model.Request) string {
@@ -593,7 +604,8 @@ func getMarkedUniqueID(req *model.Request) string {
 	return tools.StrMd5(uniqueStr)
 }
 
-/**
+/*
+*
 计算请求参数的key标记后的唯一ID
 */
 func getKeysID(dataMap map[string]interface{}) string {
@@ -609,7 +621,8 @@ func getKeysID(dataMap map[string]interface{}) string {
 	return tools.StrMd5(idStr)
 }
 
-/**
+/*
+*
 计算请求参数标记后的唯一ID
 */
 func getParamMapID(dataMap map[string]interface{}) string {
@@ -630,14 +643,16 @@ func getParamMapID(dataMap map[string]interface{}) string {
 	return tools.StrMd5(idStr)
 }
 
-/**
+/*
+*
 计算PATH标记后的唯一ID
 */
 func getPathID(path string) string {
 	return tools.StrMd5(path)
 }
 
-/**
+/*
+*
 判断字符串中是否存在以下特殊符号
 */
 func hasSpecialSymbol(str string) bool {

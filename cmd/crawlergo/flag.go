@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/Qianlitp/crawlergo/pkg/config"
 	"github.com/urfave/cli/v2"
 )
@@ -145,12 +146,12 @@ func SetRequestProxy() *cli.StringFlag {
 	}
 }
 
-// return &cli.BoolFlag{
-//	Name:        "bypass",
-//	Value:       false,
-//	Usage:       "whether to encode url with detected charset.",
-//	Destination: &taskConfig.EncodeURLWithCharset,
-//},
+//	return &cli.BoolFlag{
+//		Name:        "bypass",
+//		Value:       false,
+//		Usage:       "whether to encode url with detected charset.",
+//		Destination: &taskConfig.EncodeURLWithCharset,
+//	},
 func SetEncodeURL() *cli.BoolFlag {
 	return &cli.BoolFlag{
 		Name:        "encode-url",

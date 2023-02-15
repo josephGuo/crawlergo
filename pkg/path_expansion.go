@@ -39,7 +39,8 @@ const pathStr = "11/123/2017/2018/message/mis/model/abstract/account/act/action"
 var pathFuzzWG sync.WaitGroup
 var validateUrl mapset.Set
 
-/**
+/*
+*
 从robots.txt文件中获取路径信息
 */
 func GetPathsFromRobots(navReq model2.Request) []*model2.Request {
@@ -79,7 +80,8 @@ func GetPathsFromRobots(navReq model2.Request) []*model2.Request {
 	return result
 }
 
-/**
+/*
+*
 使用常见路径列表进行fuzz
 */
 func GetPathsByFuzz(navReq model2.Request) []*model2.Request {
@@ -88,7 +90,8 @@ func GetPathsByFuzz(navReq model2.Request) []*model2.Request {
 	return doFuzz(navReq, pathList)
 }
 
-/**
+/*
+*
 使用字典列表进行fuzz
 */
 func GetPathsByFuzzDict(navReq model2.Request, dictPath string) []*model2.Request {
@@ -138,8 +141,8 @@ func doFuzz(navReq model2.Request, pathList []string) []*model2.Request {
 	return result
 }
 
-/**
-
+/*
+*
  */
 func (s singleFuzz) doRequest() {
 	defer pathFuzzWG.Done()
