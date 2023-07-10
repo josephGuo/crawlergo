@@ -9,18 +9,19 @@ import (
 )
 
 type SimpleFilter struct {
-	UniqueSet mapset.Set
-	HostLimit string
+	UniqueSet       mapset.Set
+	HostLimit       string
+	staticSuffixSet mapset.Set
 }
 
-var (
-	staticSuffixSet = config.StaticSuffixSet.Clone()
-)
+func NewSimpleFilter(host string) *SimpleFilter {
+	staticSuffixSet := config.StaticSuffixSet.Clone()
 
-func init() {
 	for _, suffix := range []string{"js", "css", "json"} {
 		staticSuffixSet.Add(suffix)
 	}
+	s := &SimpleFilter{UniqueSet: mapset.NewSet(), staticSuffixSet: staticSuffixSet, HostLimit: host}
+	return s
 }
 
 /*
@@ -75,7 +76,7 @@ func (s *SimpleFilter) StaticFilter(req *model.Request) bool {
 	if req.URL.FileExt() == "" {
 		return false
 	}
-	if staticSuffixSet.Contains(req.URL.FileExt()) {
+	if s.staticSuffixSet.Contains(req.URL.FileExt()) {
 		return true
 	}
 	return false

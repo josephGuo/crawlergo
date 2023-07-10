@@ -16,8 +16,8 @@ import (
 )
 
 type SmartFilter struct {
-	StrictMode                 bool
-	SimpleFilter               SimpleFilter
+	StrictMode bool
+	*SimpleFilter
 	filterLocationSet          mapset.Set // 非逻辑型参数的位置记录 全局统一标记过滤
 	filterParamKeyRepeatCount  sync.Map
 	filterParamKeySingleValues sync.Map // 所有参数名重复数量统计
@@ -74,7 +74,8 @@ var onlyAlphaNumRegex = regexp.MustCompile(`^[0-9a-zA-Z]+$`)
 var markedStringRegex = regexp.MustCompile(`^{{.+}}$`)
 var htmlReplaceRegex = regexp.MustCompile(`\.shtml|\.html|\.htm`)
 
-func (s *SmartFilter) Init() {
+func NewSmartFilter(base *SimpleFilter, strictMode bool) *SmartFilter {
+	s := &SmartFilter{}
 	s.filterLocationSet = mapset.NewSet()
 	s.filterParamKeyRepeatCount = sync.Map{}
 	s.filterParamKeySingleValues = sync.Map{}
@@ -83,6 +84,9 @@ func (s *SmartFilter) Init() {
 	s.filterPathParamEmptyValues = sync.Map{}
 	s.filterParentPathValues = sync.Map{}
 	s.uniqueMarkedIds = mapset.NewSet()
+	s.SimpleFilter = base
+	s.StrictMode = strictMode
+	return s
 }
 
 /*

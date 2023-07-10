@@ -9,6 +9,7 @@ import (
 
 var cliFlags = []cli.Flag{
 	SetChromePath(),
+	SetChromeWSUrl(),
 	SetCustomHeaders(),
 	SetPostData(),
 	SetMaxCrawledCount(),
@@ -34,6 +35,7 @@ var cliFlags = []cli.Flag{
 	SetPushPoolMax(),
 	SetLogLevel(),
 	SetNoHeadless(),
+	SetMaxTime(),
 }
 
 func SetChromePath() *cli.PathFlag {
@@ -43,6 +45,16 @@ func SetChromePath() *cli.PathFlag {
 		Usage:       "`Path` of chromium executable. Such as \"/home/test/chrome-linux/chrome\"",
 		Destination: &taskConfig.ChromiumPath,
 		EnvVars:     []string{"CRAWLERGO_CHROMIUM_PATH"},
+	}
+}
+
+func SetChromeWSUrl() *cli.StringFlag {
+	return &cli.StringFlag{
+		Name:        "chrome-ws-url",
+		Aliases:     []string{"w"},
+		Usage:       "`URL` of chromium websockets debugger. Please note that any chromium flags specified will not apply when using this option. Such as \"ws://127.0.0.1:9222/devtools/browser/94b947d7-2a08-4cee-8e21-d77055e8c465\"",
+		Destination: &taskConfig.ChromiumWSUrl,
+		EnvVars:     []string{"CRAWLERGO_CHROME_WS_URL"},
 	}
 }
 
@@ -269,5 +281,14 @@ func SetNoHeadless() *cli.BoolFlag {
 		Value:       false,
 		Usage:       "no headless mode",
 		Destination: &taskConfig.NoHeadless,
+	}
+}
+
+func SetMaxTime() *cli.Int64Flag {
+	return &cli.Int64Flag{
+		Name:        "max-run-time",
+		Usage:       "the `Timeout` of the task.",
+		Value:       config.MaxRunTime,
+		Destination: &taskConfig.MaxRunTime,
 	}
 }

@@ -17,6 +17,7 @@ type TaskConfig struct {
 	PathFromRobots          bool              // 解析Robots文件找出路径
 	MaxTabsCount            int               // 允许开启的最大标签页数量 即同时爬取的数量
 	ChromiumPath            string            // Chromium的程序路径  `/home/zhusiyu1/chrome-linux/chrome`
+	ChromiumWSUrl           string            // Websocket debugging URL for a running chrome session
 	EventTriggerMode        string            // 事件触发的调用方式： 异步 或 顺序
 	EventTriggerInterval    time.Duration     // 事件触发的间隔
 	BeforeExitDelay         time.Duration     // 退出前的等待时间，等待DOM渲染，等待XHR发出捕获
@@ -25,6 +26,7 @@ type TaskConfig struct {
 	Proxy                   string            // 请求代理
 	CustomFormValues        map[string]string // 自定义表单填充参数
 	CustomFormKeywordValues map[string]string // 自定义表单关键词填充内容
+	MaxRunTime              int64             // 最大爬取时间(单位秒），超时则结束任务，平滑结束（比如某个url还未处理完不能结束，需要一次req完成后才可以结束整个任务）
 }
 
 type TaskConfigOptFunc func(*TaskConfig)
